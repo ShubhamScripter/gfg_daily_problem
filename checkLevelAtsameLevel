@@ -1,0 +1,33 @@
+bool isLeafAtSameLevel(Node* root,int curr_level,int &level)
+    {
+        if(!root) return true;
+        
+        if(root->left==0 and root->right==0) // leaf node
+        {
+            if(level==-1)
+            {
+                level=curr_level;
+                return true;
+            }
+            else
+            {
+                return level==curr_level;
+            }
+        }
+        
+        
+        return isLeafAtSameLevel(root->left,curr_level+1,level) and isLeafAtSameLevel(root->right,curr_level+1,level);
+    }
+    
+    
+    
+    
+    
+    
+    
+    bool check(Node *root)
+    {
+        int level=-1;
+        return isLeafAtSameLevel(root,1,level);
+    }
+};
