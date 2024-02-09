@@ -1,0 +1,63 @@
+/*Complete the function below
+
+struct Node
+{
+    int data;
+    struct Node* left;
+    struct Node* right;
+    
+    Node(int x){
+        data = x;
+        left = right = NULL;
+    }
+};
+*/
+
+class Solution{
+    public:
+    //Function to check whether all nodes of a tree have the value 
+    //equal to the sum of their child nodes.
+    int isSumProperty(Node *root)
+    {
+         queue<Node*>pv;
+        pv.push(root);
+        
+        int count=0;
+        
+        while(!pv.empty())
+        {
+            root=pv.front();
+            pv.pop();
+            
+            if(!root->left && !root->right)
+            {
+                count++;
+            }
+            else if(root->left && root->right && root->data==root->left->data+root->right->data)
+            {
+                pv.push(root->left);
+                pv.push(root->right);
+            }
+            
+            else if(!root->left && root->data==root->right->data)
+            {
+                pv.push(root->right);
+            }
+            
+           else if(!root->right && root->data==root->left->data)
+            {
+                pv.push(root->left);
+            }
+            
+            else
+            {
+                return 0;
+            }
+            
+        }
+        
+        return 1;
+        
+    
+    }
+};
