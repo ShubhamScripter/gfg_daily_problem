@@ -1,0 +1,23 @@
+int mod=1e9+7;
+
+    long long sequence(int n){
+        
+        long long sum=0;
+        int count=1;
+        for(int i=1;i<=n;i++)
+        {
+            long long int prod=1;
+            for(int j=1;j<=i;j++)
+            {
+                prod=(prod*count)%mod;
+                count++;
+            }
+            sum=(sum+prod)%mod;
+        }
+        
+        return sum;
+        
+        
+        
+        
+    }
