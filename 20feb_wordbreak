@@ -1,0 +1,40 @@
+void helper(int start,string s,unordered_map<string,bool>&mp,int &result)
+        {
+            if(result==0)
+            {
+            if(start==s.size())
+            {
+                result=1;
+                return;
+            }
+            string curr;
+            for(int curr_index=start;curr_index<s.size();curr_index++)
+            {
+                curr+=s[curr_index];
+                if(mp.count(curr))
+                {
+                    helper(curr_index+1,s,mp,result);
+                }
+            }
+            
+            }
+        }
+
+    
+
+
+    
+
+    int wordBreak(int n, string s, vector<string> &dictionary) {
+       
+       unordered_map<string,bool>mp;
+       for(auto e:dictionary) mp[e]=true;
+       int result=0;
+       helper(0,s,mp,result);
+       
+       return result;
+       
+       
+       
+       
+    }
