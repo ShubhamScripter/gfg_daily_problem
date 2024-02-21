@@ -1,0 +1,67 @@
+long long mod=1e3+3;
+
+
+pair<long ,long> helper(int start,int end,string s,vector<vector<pair<long long ,long long>>>&dp)
+{
+    if(start==end)
+    {
+        if(s[start]==s[end] and s[start]=='T') return {1,0};
+        else return {0,1};
+    }
+    pair<long long ,long long>p={-1,-1};
+    if(dp[start][end]!=p)
+    return dp[start][end];
+    
+    
+    pair<long long,long long>result={0,0};
+    
+    for(int j=start+1;j<end;j+=2)
+    {
+        pair<long long,long long>first_half=helper(start,j-1,s,dp);
+        pair<long long,long long>second_half=helper(j+1,end,s,dp);
+        
+        if(s[j]=='|')
+        {
+            result.first=(result.first+first_half.first*second_half.first)%mod;
+            result.first=(result.first+first_half.second*second_half.first)%mod;
+            result.first=(result.first+first_half.first*second_half.second)%mod;
+            result.second=(result.second+first_half.second*second_half.second)%mod;
+        }
+        else if(s[j]=='&')
+        {
+            result.first=(result.first+first_half.first*second_half.first)%mod;
+            result.second=(result.second+first_half.second*second_half.first)%mod;
+            result.second=(result.second+first_half.first*second_half.second)%mod;
+            result.second=(result.second+first_half.second*second_half.second)%mod;
+        }
+        else if(s[j]=='^')
+        {
+            result.first=(result.first+first_half.first*second_half.second)%mod;
+            result.first=(result.first+first_half.second*second_half.first)%mod;
+            result.second=(result.second+first_half.first*second_half.first)%mod;
+            result.second=(result.second+first_half.second*second_half.second)%mod;
+        }
+        
+    }
+    
+    return dp[start][end]=result;
+    
+}
+
+
+
+
+
+
+
+
+    int countWays(int n, string s){
+       
+     vector<vector<pair<long long,long long>>>dp(n,vector<pair<long long ,long long>>(n,{-1,-1}));
+    pair<long long,long long>result=helper(0,n-1,s,dp);
+    
+    return result.first;
+       
+       
+       
+    }
